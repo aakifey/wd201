@@ -1,4 +1,5 @@
-const minimist = require('minimist');
+const minimist = require("minimist");
+// eslint-disable-next-line no-undef
 const args = minimist(process.argv.slice(2));
 
 // Now we can access our arguments by name
@@ -6,12 +7,12 @@ const num1 = parseInt(args.num1);
 const num2 = parseInt(args.num2);
 const operation = args.operation;
 
-if (operation === 'add') {
+if (operation === "add") {
   console.log(`The result is: ${num1 + num2}`);
-} else if (operation === 'subtract') {
+} else if (operation === "subtract") {
   console.log(`The result is: ${num1 - num2}`);
-} else if (operation === 'multiply') {
+} else if (operation === "multiply") {
   console.log(`The result is: ${num1 * num2}`);
 } else {
-  console.log('Unknown operation');
+  console.log("Unknown operation");
 }

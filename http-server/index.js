@@ -2,6 +2,7 @@ const http = require("http");
 const fs = require("fs");
 const minimist = require("minimist");
 
+// eslint-disable-next-line no-undef
 const args = minimist(process.argv.slice(2));
 
 const port = args.port;
@@ -24,11 +25,10 @@ fs.readFile("project.html", (err, project) => {
   projectContent = project;
 });
 
-fs.readFile("registration.html", (err,registration) => {
-    if (err) throw err;
-    registrationContent = registration
+fs.readFile("registration.html", (err, registration) => {
+  if (err) throw err;
+  registrationContent = registration;
 });
-
 
 http
   .createServer((request, response) => {
