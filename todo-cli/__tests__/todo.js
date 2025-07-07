@@ -67,7 +67,7 @@ describe("Tests for functions in todo.js", function () {
     expect(aTodo.completed).toBe(true);
     const displayValue = aTodo.displayableString();
     expect(displayValue).toBe(
-      `${aTodo.id}. [x] ${aTodo.title} ${aTodo.dueDate}`,
+      `${aTodo.id}. [x] ${aTodo.title} ${aTodo.dueDate}`
     );
   });
 
@@ -77,7 +77,7 @@ describe("Tests for functions in todo.js", function () {
     expect(aTodo.completed).toBe(false);
     const displayValue = aTodo.displayableString();
     expect(displayValue).toBe(
-      `${aTodo.id}. [ ] ${aTodo.title} ${aTodo.dueDate}`,
+      `${aTodo.id}. [ ] ${aTodo.title} ${aTodo.dueDate}`
     );
   });
 

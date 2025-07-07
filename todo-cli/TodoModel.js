@@ -25,7 +25,7 @@ Todo.init(
   },
   {
     sequelize,
-  },
+  }
 );
 
 Todo.sync();

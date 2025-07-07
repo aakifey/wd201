@@ -8,10 +8,10 @@ const todoList = () => {
   var dateToday = new Date();
   const today = formattedDate(dateToday);
   const yesterday = formattedDate(
-    new Date(new Date().setDate(dateToday.getDate() - 1)),
+    new Date(new Date().setDate(dateToday.getDate() - 1))
   );
   const tomorrow = formattedDate(
-    new Date(new Date().setDate(dateToday.getDate() + 1)),
+    new Date(new Date().setDate(dateToday.getDate() + 1))
   );
 
   const add = (todoItem) => {
@@ -75,10 +75,10 @@ const formattedDate = (d) => {
 var dateToday = new Date();
 const today = formattedDate(dateToday);
 const yesterday = formattedDate(
-  new Date(new Date().setDate(dateToday.getDate() - 1)),
+  new Date(new Date().setDate(dateToday.getDate() - 1))
 );
 const tomorrow = formattedDate(
-  new Date(new Date().setDate(dateToday.getDate() + 1)),
+  new Date(new Date().setDate(dateToday.getDate() + 1))
 );
 
 todos.add({ title: "Submit assignment", dueDate: yesterday, completed: false });

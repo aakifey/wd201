@@ -85,7 +85,7 @@ module.exports = (sequelize, DataTypes) => {
           where: {
             id: id,
           },
-        },
+        }
       );
     }
 
@@ -107,7 +107,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Todo",
-    },
+    }
   );
   return Todo;
 };
