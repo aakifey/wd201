@@ -1,0 +1,3 @@
+#!/bin/sh
+cd todo-app && npm test
+cd .. && npx lint-staged
