@@ -1,2 +1,10 @@
+#!/bin/sh
+set -e
+
+echo "Running tests..."
 cd todo-app && npm test
-npx lint-staged
+echo "Tests completed successfully"
+
+echo "Running lint-staged..."
+cd .. && npx lint-staged
+echo "Lint-staged completed successfully"

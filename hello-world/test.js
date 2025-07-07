@@ -1,3 +1,3 @@
 const home = "Hello!";
 
-console.log(home)
+console.log(home);
