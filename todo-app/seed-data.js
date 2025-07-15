@@ -2,34 +2,46 @@ const { Todo } = require("./models");
 
 async function seedData() {
   try {
-    // Clear existing data
-    await Todo.destroy({ where: {} });
+    // Clear existing data and reset auto-increment
+    await Todo.truncate({ restartIdentity: true });
+
+    // Get today's date in YYYY-MM-DD format
+    const today = new Date().toISOString().split("T")[0];
+
+    // Calculate dates for yesterday and tomorrow
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    const yesterdayStr = yesterday.toISOString().split("T")[0];
+
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const tomorrowStr = tomorrow.toISOString().split("T")[0];
 
     // Add sample todos
     const sampleTodos = [
       {
-        title: "Complete project documentation",
-        dueDate: "2025-01-15",
+        title: "Pay electricity bill",
+        dueDate: yesterdayStr,
         completed: false,
       },
       {
-        title: "Review code changes",
-        dueDate: "2025-01-10",
-        completed: true,
+        title: "Submit assignment",
+        dueDate: today,
+        completed: false,
       },
       {
         title: "Prepare presentation slides",
-        dueDate: "2025-01-20",
+        dueDate: tomorrowStr,
         completed: false,
       },
       {
-        title: "Update dependencies",
-        dueDate: "2025-01-08",
-        completed: true,
+        title: "Call the dentist",
+        dueDate: yesterdayStr,
+        completed: false,
       },
       {
-        title: "Write unit tests",
-        dueDate: "2025-01-25",
+        title: "Team meeting at 3 PM",
+        dueDate: today,
         completed: false,
       },
     ];
