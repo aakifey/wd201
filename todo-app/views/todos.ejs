@@ -48,7 +48,7 @@
               >
                 <input
                   id="todo-checkbox-<%= allTodos[i].id %>"
-                  type="checkbox"
+                  type="checkbox" <%= allTodos[i].completed ? "checked" : "" %> onclick="updateTodo(<%= allTodos[i].id %>)"
                   class="w-4 h-4 text-blue-600 bg-gray-100 rounded border"
                 />
                 <label
@@ -56,7 +56,7 @@
                   for="todo-checkbox-<%= allTodos[i].id %>"
                   ><%= allTodos[i].title %></label
                 >
-                <a href="#" class="hidden ml-2 trash-icon">
+                <a href="#" class="hidden ml-2 trash-icon" onclick="deleteTodo(<%= allTodos[i].id %>)">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -89,7 +89,7 @@
               >
                 <input
                   id="todo-checkbox-<%= allTodos[i].id %>"
-                  type="checkbox"
+                  type="checkbox" <%= allTodos[i].completed ? "checked" : "" %> onclick="updateTodo(<%= allTodos[i].id %>)"
                   class="w-4 h-4 text-blue-600 bg-gray-100 rounded border"
                 />
                 <label
@@ -97,7 +97,7 @@
                   for="todo-checkbox-<%= allTodos[i].id %>"
                   ><%= allTodos[i].title %></label
                 >
-                <a href="#" class="hidden ml-2 trash-icon">
+                <a href="#" class="hidden ml-2 trash-icon" onclick="deleteTodo(<%= allTodos[i].id %>)">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -130,7 +130,7 @@
               >
                 <input
                   id="todo-checkbox-<%= allTodos[i].id %>"
-                  type="checkbox"
+                  type="checkbox" <%= allTodos[i].completed ? "checked" : "" %> onclick="updateTodo(<%= allTodos[i].id %>)"
                   class="w-4 h-4 text-blue-600 bg-gray-100 rounded border"
                 />
                 <label
@@ -138,7 +138,7 @@
                   for="todo-checkbox-<%= allTodos[i].id %>"
                   ><%= allTodos[i].title %></label
                 >
-                <a href="#" class="hidden ml-2 trash-icon">
+                <a href="#" class="hidden ml-2 trash-icon" onclick="deleteTodo(<%= allTodos[i].id %>)">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
