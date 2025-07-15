@@ -38,7 +38,7 @@
 
 
         <h5>Overdue<span class="bg-purple-100 p-1 ml-2 rounded" id="count-overdue"><%= overdueCount %></span></h5>
-          <ul class="list-none">
+          <!-- <ul class="list-none">
             <% for (var i = 0; i < allTodos.length; i++) { %>
             <% if (allTodos[i].dueDate < today) { %>
                 <li class="Todo-Item">
@@ -75,10 +75,10 @@
             </li>
             <% } %>
             <% } %>
-          </ul>
+          </ul> -->
 
           <h5>Due Today<span class="bg-purple-100 p-1 ml-2 rounded" id="count-due-today"><%= todayCount %></span></h5>
-          <ul class="list-none">
+          <!-- <ul class="list-none">
             <% for (var i = 0; i < allTodos.length; i++) { %>
             <% if (allTodos[i].dueDate === today) { %>
                 <li class="Todo-Item">
@@ -115,10 +115,9 @@
             </li>
             <% } %>
             <% } %>
-          </ul>
-
+          </ul> -->
           <h5>Due Later<span class="bg-purple-100 p-1 ml-2 rounded" id="count-due-later"><%= laterCount %></span></h5>
-          <ul class="list-none">
+          <!-- <ul class="list-none">
             <% for (var i = 0; i < allTodos.length; i++) { %>
             <% if (allTodos[i].dueDate > today) { %>
                 <li class="Todo-Item">
@@ -155,6 +154,6 @@
             </li>
             <% } %>
             <% } %>
-          </ul>
+          </ul> -->
         </div>
       </div>
