@@ -1,5 +1,5 @@
 const express = require("express");
-var csurf = require("csurf");
+var csurf = require("tiny-csrf");
 const app = express();
 const { Todo } = require("./models");
 var cookieParser = require("cookie-parser");
@@ -9,7 +9,7 @@ const path = require("path");
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser("shh! some secret string"));
-app.use(csurf({ cookie: true }));
+app.use(csurf("12345678901234567890123456789012", ["POST", "PUT", "DELETE"]));
 
 app.set("view engine", "ejs");
 
@@ -65,10 +65,10 @@ app.post("/todos", async function (request, response) {
   }
 });
 
-app.put("/todos/:id/markAsCompleted", async function (request, response) {
+app.put("/todos/:id", async function (request, response) {
   const todo = await Todo.findByPk(request.params.id);
   try {
-    const updatedTodo = await todo.markAsCompleted();
+    const updatedTodo = await todo.setCompletionStatus(request.body.completed);
     return response.json(updatedTodo);
   } catch (error) {
     console.log(error);

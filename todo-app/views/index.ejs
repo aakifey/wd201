@@ -11,21 +11,31 @@
       var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
       function updateTodo(id) {
-        fetch(`/todos/${id}/markAsCompleted`, {
+        const checkbox = document.getElementById(`todo-checkbox-${id}`);
+        const completed = checkbox.checked;
+
+        fetch(`/todos/${id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ "_csrf": token }),
+          body: JSON.stringify({
+            "_csrf": token,
+            "completed": completed
+          }),
         })
           .then((res) => {
-            if (!res.ok) {
+            if (res.ok) {
               window.location.reload();
+            } else {
+              // Revert checkbox state if request failed
+              checkbox.checked = !completed;
             }
-            
           })
           .catch((err) => {
             console.error(err);
+            // Revert checkbox state if request failed
+            checkbox.checked = !completed;
           });
       }
 
@@ -46,6 +56,8 @@
             console.error(err);
           });
       }
+
+
     </script>
     <title>To-Do Manager</title>
   </head>
