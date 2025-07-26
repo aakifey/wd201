@@ -8,26 +8,42 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(_models) {
+      Todo.belongsTo(_models.User, {
+        foreignKey: "userId",
+      });
       // define association here
     }
-    static addTodo({ title, dueDate }) {
-      return this.create({ title: title, dueDate: dueDate, completed: false });
+    static addTodo({ title, dueDate, userId }) {
+      return this.create({
+        title: title,
+        dueDate: dueDate,
+        completed: false,
+        userId,
+      });
     }
 
-    static getTodos() {
-      return this.findAll();
-    }
-
-    static async remove(id) {
-      return this.destroy({
+    static getTodos(userId) {
+      return this.findAll({
         where: {
-          id: id,
+          userId: userId,
         },
       });
     }
 
-    setCompletionStatus(completed) {
-      return this.update({ completed: completed });
+    static async remove(id, userId) {
+      return this.destroy({
+        where: {
+          id: id,
+          userId: userId,
+        },
+      });
+    }
+
+    setCompletionStatus(completed, userId) {
+      return this.update(
+        { completed: completed },
+        { where: { userId: userId } }
+      );
     }
   }
   Todo.init(
