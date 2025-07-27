@@ -6,6 +6,9 @@ var cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const path = require("path");
 const bcrypt = require("bcrypt");
+const flash = require("connect-flash");
+
+app.set("views", path.join(__dirname, "views"));
 
 const saltRounds = 10;
 const passport = require("passport");
@@ -27,6 +30,12 @@ app.use(
   })
 );
 
+app.use(flash());
+app.use(function (request, response, next) {
+  response.locals.messages = request.flash();
+  next();
+});
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -43,7 +52,7 @@ passport.use(
           if (result) {
             return done(null, user);
           } else {
-            return done("Invalid Password");
+            return done(null, false, { message: "Invalid email or password" });
           }
         })
         .catch((error) => {
@@ -71,6 +80,9 @@ passport.deserializeUser((id, done) => {
 app.set("view engine", "ejs");
 
 app.get("/", async (request, response) => {
+  if (request.isAuthenticated()) {
+    return response.redirect("/todos");
+  }
   response.render("index", {
     title: "Todo application",
     csrfToken: request.csrfToken(),
@@ -118,10 +130,20 @@ app.post("/users", async (request, response) => {
       if (err) {
         console.log(err);
       }
+      request.flash("success", "Account created successfully");
       response.redirect("/todos");
     });
   } catch (error) {
     console.log(error);
+    if (error.name === "SequelizeValidationError") {
+      error.errors.forEach((e) => {
+        request.flash("error", e.message);
+      });
+    } else {
+      console.log(error);
+      request.flash("error", "Signup failed!");
+    }
+    response.redirect("/signup");
   }
 });
 
@@ -134,7 +156,10 @@ app.get("/login", (request, response) => {
 
 app.post(
   "/session",
-  passport.authenticate("local", { failureRedirect: "/login" }),
+  passport.authenticate("local", {
+    failureRedirect: "/login",
+    failureFlash: true,
+  }),
   (request, response) => {
     response.redirect("/todos");
   }
@@ -185,10 +210,18 @@ app.post(
         dueDate: request.body.dueDate,
         userId: request.user.id,
       });
+      request.flash("success", "Todo added successfully");
       return response.redirect("/todos");
     } catch (error) {
-      console.log(error);
-      return response.status(422).json(error);
+      if (error.name === "SequelizeValidationError") {
+        error.errors.forEach((e) => {
+          request.flash("error", e.message);
+        });
+      } else {
+        console.log(error);
+        request.flash("error", "Todo could not be added");
+      }
+      return response.redirect("/todos");
     }
   }
 );
@@ -218,9 +251,11 @@ app.delete(
     // FILL IN YOUR CODE HERE
     try {
       await Todo.remove(request.params.id, request.user.id);
+      request.flash("success", "Todo deleted successfully");
       return response.json({ sucess: true });
     } catch (error) {
       console.log(error);
+      request.flash("error", "Todo could not be deleted");
       return response.status(422).json(false);
     }
     // First, we have to query our database to delete a Todo by ID.
